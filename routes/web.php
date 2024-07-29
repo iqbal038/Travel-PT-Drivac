@@ -50,7 +50,7 @@ Route::get('/riwayat-transaksi/{tipe}/{id}', [TransaksiController::class, 'pemba
 Route::group(['middleware' => ['login_admin']], function() {
     Route::get('/admin-dashboard', [AdminController::class, 'index']);
     Route::get('/laporan', [LaporanController::class, 'laporan']);
-    Route::get('/laporan-cetak', [LaporanController::class, 'laporan_cetak']);
+    Route::post('/laporan-cetak', [LaporanController::class, 'laporan_cetak']);
     Route::get('/supir', [SupirController::class, 'supir']);
     Route::post('/supir', [SupirController::class, 'store']);
     Route::get('/tujuan', [TujuanController::class, 'index']);

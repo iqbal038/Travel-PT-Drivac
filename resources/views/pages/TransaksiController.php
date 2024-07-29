@@ -31,14 +31,14 @@ class TransaksiController extends Controller
         $this->validate($request, [
             'jenis_pembayaran' => 'required'
         ]);
-        
+
         $status = Transaksi::create([
             'jenis_pembayaran' => $request->jenis_pembayaran,
             'jumlah_pembayaran' => $request->jumlah_pembayaran,
             'tanggal_pembayaran' => NOW(),
             'no_pemesanan' => $request->no_pemesanan
         ]);
-        
+
         if($status)
         {
             return redirect()->to('riwayat-transaksi')->with('success', 'Pembayaran berhasil dilakukan.');
@@ -65,6 +65,7 @@ class TransaksiController extends Controller
 
         }
 
+
         return view('pages.pembayaran')->with(['pemesanan' => $data]);
     }
     public function riwayat_transaksi()
@@ -74,14 +75,14 @@ class TransaksiController extends Controller
             ->select('a.*', 'b.tujuan')
             ->where('a.id_user', Auth::user()->id)
             ->get();
-            
+
         $pembayaran = DB::table('pemesanan as a')
                 ->join('transaksi as b', 'a.no_pemesanan', '=', 'b.no_pemesanan')
                 ->join('tujuan as c', 'a.id_tujuan', '=', 'c.id')
                 ->select('a.*', 'b.jenis_pembayaran', 'b.jumlah_pembayaran', 'c.tujuan')
                 ->where('a.id_user', Auth::user()->id)
                 ->get();
-                
+
         return view('pages.riwayat-transaksi', compact('pemesanan', 'pembayaran'));
     }
 
