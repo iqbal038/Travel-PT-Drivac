@@ -276,8 +276,7 @@
                 console.log('jml',jumlah_pemesanan)
                 var routes = e.routes;
                 var totalDistance = routes.reduce((acc, route) => acc + route.summary.totalDistance, 0);
-
-                totalDistance = totalDistance / 1000;
+                totalDistance = totalDistance / 1000; // convert to km
                 var totalHarga = (totalDistance * 1250) * jumlah_pemesanan
                 var totalHargaFormatted = totalHarga;
                 hargaSatuPenumpang = (totalDistance * 1250)
